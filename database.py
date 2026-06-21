@@ -1,9 +1,26 @@
 # -*- coding: utf-8 -*-
 """学生信息管理系统 - 数据库模块"""
 import os,sqlite3,pymysql,hashlib
-DB_TYPE=os.environ.get("DB_TYPE","sqlite")
+TIDB_CONFIG={
+    "host":"gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
+    "port":4000,
+    "user":"23fjQ2u7KMmNNeg.root",
+    "password":"KSxZ9Cy61SdOxe5p",
+    "database":"student_db",
+    "charset":"utf8mb4",
+    "ssl":{"ssl":True},
+    "autocommit":True,
+}
+DB_TYPE="sqlite";MYSQL_CONFIG={};TIDB_OK=False
 SQLITE_PATH=os.path.join(os.path.dirname(__file__),"student.db")
-MYSQL_CONFIG={"host":os.environ.get("MYSQL_HOST","localhost"),"port":int(os.environ.get("MYSQL_PORT",3306)),"user":os.environ.get("MYSQL_USER","root"),"password":os.environ.get("MYSQL_PASSWORD",""),"database":os.environ.get("MYSQL_DATABASE","student_db"),"charset":"utf8mb4"}
+# 尝试连接 TiDB Cloud
+try:
+    tc=pymysql.connect(**TIDB_CONFIG)
+    tc.close()
+    DB_TYPE="mysql";MYSQL_CONFIG=TIDB_CONFIG;TIDB_OK=True
+    print("[DB] TiDB Cloud 连接成功")
+except Exception as e:
+    print(f"[DB] TiDB Cloud 不可用({e})，使用 SQLite 兜底")
 
 def get_connection():
     if DB_TYPE=="mysql":return pymysql.connect(**MYSQL_CONFIG)
