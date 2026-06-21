@@ -6,39 +6,37 @@ from database import *
 
 st.set_page_config(page_title="学生信息管理系统",page_icon="",layout="wide",initial_sidebar_state="expanded")
 st.markdown("""<style>
-html,body,[class*="css"]{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-.stButton>button{border-radius:4px;font-size:13px;height:32px;padding:0 14px;font-weight:500;letter-spacing:-.01em;transition:background .1s,border-color .1s;border:1px solid #D1D5DB;background:#fff;color:#111827;box-shadow:none}
-.stButton>button:hover{background:#F3F4F6;border-color:#9CA3AF}
-.stButton>button:active{background:#E5E7EB}
-.stButton>button:focus-visible{outline:2px solid #5E6AD2;outline-offset:2px}
-.stButton>button[kind="primary"]{background:#5E6AD2;border-color:#5E6AD2;color:#fff}
-.stButton>button[kind="primary"]:hover{background:#4F5AC0}
-.stButton>button[kind="primary"]:active{background:#3E4AAF}
-.stTextInput input,.stNumberInput input,.stSelectbox div[data-baseweb="select"]>div{border-radius:4px;border:1px solid #D1D5DB;background:#fff;font-size:13px;height:32px;min-height:32px;color:#111827}
-.stTextInput input:focus,.stSelectbox div[data-baseweb="select"]>div:focus-within{border-color:#5E6AD2;box-shadow:none}
-label,.stSelectbox label,.stTextInput label{font-size:12px;font-weight:500;color:#6B7280}
-.stDataFrame table{font-size:13px}
-.stDataFrame thead th{font-size:12px;font-weight:500;color:#6B7280;text-transform:none;letter-spacing:0;background:none;border-bottom:2px solid #E5E7EB}
-.stDataFrame tbody td{border-bottom:1px solid #F3F4F6}
-[data-testid="stMetricValue"]{font-size:24px;font-weight:600;letter-spacing:-.02em;color:#111827}
-[data-testid="stMetricLabel"]{font-size:12px;color:#6B7280}
-.stTabs [data-baseweb="tab-list"]{gap:0;border-bottom:1px solid #E5E7EB}
-.stTabs [data-baseweb="tab"]{font-size:13px;padding:8px 16px;border-radius:0;border-bottom:2px solid transparent;color:#6B7280;transition:color .1s}
-.stTabs [data-baseweb="tab"]:hover{color:#111827}
-.stTabs [aria-selected="true"]{color:#111827;border-bottom-color:#5E6AD2;font-weight:500}
-[data-testid="stSidebar"]{background:#FAFAFA;border-right:1px solid #EBEBEB}
-[data-testid="stSidebar"] .stRadio label{font-size:13px;color:#6B7280;padding:6px 12px;border-radius:4px;transition:background .1s}
-[data-testid="stSidebar"] .stRadio label:hover{background:rgba(0,0,0,.04);color:#111827}
+html,body,[class*="css"]{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;color:#111;background:#fff}
+.stButton>button{font-size:13px;height:32px;padding:0 14px;border-radius:4px;border:1px solid #d4d4d4;background:#fff;color:#111;font-weight:500;transition:background .15s, border-color .15s;box-shadow:none;letter-spacing:-.01em}
+.stButton>button:hover{background:#f5f5f5;border-color:#aaa}
+.stButton>button:active{background:#ebebeb}
+.stButton>button[kind="primary"]{background:#111;border-color:#111;color:#fff}
+.stButton>button[kind="primary"]:hover{background:#333;border-color:#333}
+.stTextInput input,.stNumberInput input,.stSelectbox [data-baseweb="select"]>div{font-size:13px;height:32px;min-height:32px;border-radius:4px;border:1px solid #d4d4d4;background:#fff;color:#111}
+.stTextInput input:focus,.stSelectbox [data-baseweb="select"]>div:focus-within{border-color:#111;box-shadow:none;outline:none}
+label,.stSelectbox label,.stTextInput label{font-size:12px;font-weight:500;color:#666;margin-bottom:2px}
+.stDataFrame{font-size:13px}
+.stDataFrame thead th{font-size:12px;font-weight:500;color:#666;background:none;border-bottom:2px solid #e5e5e5;padding:8px 12px}
+.stDataFrame tbody td{border-bottom:1px solid #f0f0f0;padding:8px 12px}
+[data-testid="stMetricValue"]{font-size:24px;font-weight:600;letter-spacing:-.02em;color:#111}
+[data-testid="stMetricLabel"]{font-size:12px;color:#666;margin-bottom:4px}
+.stTabs [data-baseweb="tab-list"]{gap:0;border-bottom:1px solid #e5e5e5}
+.stTabs [data-baseweb="tab"]{font-size:13px;padding:9px 16px;border-radius:0;border-bottom:2px solid transparent;color:#666;margin-bottom:-1px}
+.stTabs [data-baseweb="tab"]:hover{color:#111}
+.stTabs [aria-selected="true"]{color:#111;border-bottom-color:#111;font-weight:500}
+[data-testid="stSidebar"]{background:#fafafa;border-right:1px solid #ebebeb}
+[data-testid="stSidebar"] .stRadio label{font-size:13px;color:#666;padding:6px 10px;border-radius:4px}
+[data-testid="stSidebar"] .stRadio label:hover{background:rgba(0,0,0,.04);color:#111}
+[data-testid="stSidebar"] .stRadio [data-checked="true"] label{color:#111;font-weight:500}
 div[data-testid="stForm"]{border:none;background:none;padding:0}
-.stAlert{border-radius:4px;border:1px solid #E5E7EB}
-.block-container{padding-top:56px;padding-left:32px;padding-right:32px;max-width:960px}
-p,span,div{color:#111827}
-.stCaption,caption{color:#6B7280}
-[data-testid="stHeader"]+div{margin-top:0}
-header[data-testid="stHeader"]{background:#fff;backdrop-filter:none}
+.block-container{padding-top:48px;padding-left:32px;padding-right:32px;max-width:960px}
+.stDivider{margin:20px 0}
+hr{border-color:#ebebeb;margin:24px 0}
+h3{font-size:20px;font-weight:600;letter-spacing:-.02em;margin-bottom:4px}
+.stCaption{font-size:13px;color:#888}
+header[data-testid="stHeader"]{background:#fff}
 #MainMenu,footer{display:none}
-hr{margin:24px 0;border-color:#EBEBEB}
-@media(max-width:768px){.block-container{padding-left:16px;padding-right:16px;padding-top:48px}}
+@media(max-width:768px){.block-container{padding:16px;padding-top:40px}}
 </style>""",unsafe_allow_html=True)
 
 @st.cache_resource
