@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """学生信息管理系统 - 数据库模块"""
-import os,sqlite3,pymysql,hashlib
+import os,sqlite3,hashlib
 TIDB_CONFIG={
     "host":"gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
     "port":4000,
@@ -11,16 +11,16 @@ TIDB_CONFIG={
     "ssl":{"ssl":True},
     "autocommit":True,
 }
-DB_TYPE="sqlite";MYSQL_CONFIG={};TIDB_OK=False
+DB_TYPE="sqlite";MYSQL_CONFIG={}
 SQLITE_PATH=os.path.join(os.path.dirname(__file__),"student.db")
-# 尝试连接 TiDB Cloud
 try:
+    import pymysql
     tc=pymysql.connect(**TIDB_CONFIG)
     tc.close()
-    DB_TYPE="mysql";MYSQL_CONFIG=TIDB_CONFIG;TIDB_OK=True
+    DB_TYPE="mysql";MYSQL_CONFIG=TIDB_CONFIG
     print("[DB] TiDB Cloud 连接成功")
-except Exception as e:
-    print(f"[DB] TiDB Cloud 不可用({e})，使用 SQLite 兜底")
+except Exception:
+    print("[DB] SQLite 模式")
 
 def get_connection():
     if DB_TYPE=="mysql":return pymysql.connect(**MYSQL_CONFIG)
