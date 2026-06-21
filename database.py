@@ -44,9 +44,9 @@ def init_database():
             "CREATE TABLE IF NOT EXISTS classes(id INTEGER PRIMARY KEY AUTOINCREMENT,class_name TEXT UNIQUE NOT NULL,major_id INTEGER NOT NULL,grade TEXT,FOREIGN KEY(major_id)REFERENCES majors(id))",
             "CREATE TABLE IF NOT EXISTS students(id INTEGER PRIMARY KEY AUTOINCREMENT,student_id TEXT UNIQUE NOT NULL,name TEXT NOT NULL,gender TEXT DEFAULT'男',birth_date TEXT,class_id INTEGER NOT NULL,enrollment_year TEXT,phone TEXT,address TEXT,FOREIGN KEY(class_id)REFERENCES classes(id))",
         ]:cur.execute(s)
-    pwd=hashlib.sha256("admin123".encode()).hexdigest()
-    cur.execute(f"SELECT id FROM users WHERE username={qmark()}",("admin",))
-    if not cur.fetchone():cur.execute(f"INSERT INTO users(username,password)VALUES({qmark()},{qmark()})",("admin",pwd))
+    pwd=hashlib.sha256("abc123".encode()).hexdigest()
+    cur.execute(f"SELECT id FROM users WHERE username={qmark()}",("kitty",))
+    if not cur.fetchone():cur.execute(f"INSERT INTO users(username,password)VALUES({qmark()},{qmark()})",("kitty",pwd))
 
     cur.execute("SELECT COUNT(*)as cnt FROM majors")
     if(cur.fetchone()[0]if DB_TYPE=="mysql" else cur.fetchone()["cnt"])==0:

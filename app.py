@@ -6,35 +6,42 @@ from database import *
 
 st.set_page_config(page_title="学生信息管理系统",page_icon="",layout="wide",initial_sidebar_state="expanded")
 st.markdown("""<style>
-html,body,[class*="css"]{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;color:#111;background:#fff}
-.stButton>button{font-size:13px;height:32px;padding:0 14px;border-radius:4px;border:1px solid #d4d4d4;background:#fff;color:#111;font-weight:500;transition:background .15s, border-color .15s;box-shadow:none;letter-spacing:-.01em}
-.stButton>button:hover{background:#f5f5f5;border-color:#aaa}
-.stButton>button:active{background:#ebebeb}
-.stButton>button[kind="primary"]{background:#111;border-color:#111;color:#fff}
-.stButton>button[kind="primary"]:hover{background:#333;border-color:#333}
-.stTextInput input,.stNumberInput input,.stSelectbox [data-baseweb="select"]>div{font-size:13px;height:32px;min-height:32px;border-radius:4px;border:1px solid #d4d4d4;background:#fff;color:#111}
-.stTextInput input:focus,.stSelectbox [data-baseweb="select"]>div:focus-within{border-color:#111;box-shadow:none;outline:none}
-label,.stSelectbox label,.stTextInput label{font-size:12px;font-weight:500;color:#666;margin-bottom:2px}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+html,body,[class*="css"]{font-family:"Nunito",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;color:#2d1b2e;background:#fff8fa}
+.stButton>button{font-size:13px;height:32px;padding:0 16px;border-radius:8px;border:2px solid #f0c4d8;background:#fff;color:#2d1b2e;font-weight:600;transition:all .2s;box-shadow:0 1px 3px rgba(255,107,157,.1)}
+.stButton>button:hover{background:#fff0f5;border-color:#ff6b9d;transform:translateY(-1px);box-shadow:0 2px 8px rgba(255,107,157,.2)}
+.stButton>button:active{transform:translateY(0);box-shadow:none}
+.stButton>button[kind="primary"]{background:linear-gradient(135deg,#ff6b9d,#ff8e53);border-color:transparent;color:#fff;box-shadow:0 2px 8px rgba(255,107,157,.3)}
+.stButton>button[kind="primary"]:hover{box-shadow:0 4px 16px rgba(255,107,157,.4);transform:translateY(-1px)}
+.stButton>button[kind="primary"]:active{transform:translateY(0)}
+.stTextInput input,.stNumberInput input{font-size:13px;height:32px;min-height:32px;border-radius:8px;border:2px solid #f0c4d8;background:#fff;color:#2d1b2e;padding:0 12px}
+.stTextInput input:focus,.stNumberInput input:focus{border-color:#ff6b9d;box-shadow:0 0 0 3px rgba(255,107,157,.12);outline:none}
+.stSelectbox [data-baseweb="select"]>div{font-size:13px;height:32px;min-height:32px;border-radius:8px;border:2px solid #f0c4d8;background:#fff}
+.stSelectbox [data-baseweb="select"]>div:focus-within{border-color:#ff6b9d;box-shadow:0 0 0 3px rgba(255,107,157,.12)}
+label,.stSelectbox label,.stTextInput label{font-size:12px;font-weight:600;color:#b86b8a;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
 .stDataFrame{font-size:13px}
-.stDataFrame thead th{font-size:12px;font-weight:500;color:#666;background:none;border-bottom:2px solid #e5e5e5;padding:8px 12px}
-.stDataFrame tbody td{border-bottom:1px solid #f0f0f0;padding:8px 12px}
-[data-testid="stMetricValue"]{font-size:24px;font-weight:600;letter-spacing:-.02em;color:#111}
-[data-testid="stMetricLabel"]{font-size:12px;color:#666;margin-bottom:4px}
-.stTabs [data-baseweb="tab-list"]{gap:0;border-bottom:1px solid #e5e5e5}
-.stTabs [data-baseweb="tab"]{font-size:13px;padding:9px 16px;border-radius:0;border-bottom:2px solid transparent;color:#666;margin-bottom:-1px}
-.stTabs [data-baseweb="tab"]:hover{color:#111}
-.stTabs [aria-selected="true"]{color:#111;border-bottom-color:#111;font-weight:500}
-[data-testid="stSidebar"]{background:#fafafa;border-right:1px solid #ebebeb}
-[data-testid="stSidebar"] .stRadio label{font-size:13px;color:#666;padding:6px 10px;border-radius:4px}
-[data-testid="stSidebar"] .stRadio label:hover{background:rgba(0,0,0,.04);color:#111}
-[data-testid="stSidebar"] .stRadio [data-checked="true"] label{color:#111;font-weight:500}
+.stDataFrame thead th{font-size:12px;font-weight:600;color:#b86b8a;background:linear-gradient(180deg,#fff0f5,#fff);border-bottom:2px solid #f0c4d8;padding:10px 14px}
+.stDataFrame tbody td{border-bottom:1px solid #fde8f0;padding:9px 14px}
+.stDataFrame tbody tr:hover td{background:#fff5f8}
+[data-testid="stMetricValue"]{font-size:28px;font-weight:800;color:#ff6b9d}
+[data-testid="stMetricLabel"]{font-size:12px;color:#b86b8a;font-weight:600}
+[data-testid="stMetric"]{background:linear-gradient(135deg,#fff0f5,#fff8fa);border:2px solid #fde8f0;border-radius:10px;padding:16px;text-align:center}
+.stTabs [data-baseweb="tab-list"]{gap:4px;border-bottom:2px solid #f0c4d8;padding-bottom:0}
+.stTabs [data-baseweb="tab"]{font-size:13px;padding:10px 20px;border-radius:10px 10px 0 0;border:2px solid transparent;color:#b86b8a;font-weight:600;margin-bottom:-2px;background:transparent}
+.stTabs [data-baseweb="tab"]:hover{color:#ff6b9d;background:rgba(255,107,157,.06)}
+.stTabs [aria-selected="true"]{color:#ff6b9d;background:#fff;border-color:#f0c4d8;border-bottom-color:#fff}
+[data-testid="stSidebar"]{background:linear-gradient(180deg,#fff5f8,#fff8fa);border-right:2px solid #fde8f0}
+[data-testid="stSidebar"] .stRadio label{font-size:13px;color:#b86b8a;font-weight:600;padding:8px 12px;border-radius:8px;transition:all .15s}
+[data-testid="stSidebar"] .stRadio label:hover{background:rgba(255,107,157,.08);color:#ff6b9d}
+[data-testid="stSidebar"] .stRadio [data-checked="true"] label{background:rgba(255,107,157,.12);color:#ff6b9d}
 div[data-testid="stForm"]{border:none;background:none;padding:0}
 .block-container{padding-top:48px;padding-left:32px;padding-right:32px;max-width:960px}
 .stDivider{margin:20px 0}
-hr{border-color:#ebebeb;margin:24px 0}
-h3{font-size:20px;font-weight:600;letter-spacing:-.02em;margin-bottom:4px}
-.stCaption{font-size:13px;color:#888}
-header[data-testid="stHeader"]{background:#fff}
+hr{border-color:#f0c4d8;margin:24px 0}
+h1,h2,h3{color:#2d1b2e;font-weight:700}
+h3{font-size:22px;letter-spacing:-.01em}
+.stCaption{font-size:13px;color:#b86b8a}
+header[data-testid="stHeader"]{background:linear-gradient(90deg,#fff5f8,#fff8fa);border-bottom:1px solid #fde8f0}
 #MainMenu,footer{display:none}
 @media(max-width:768px){.block-container{padding:16px;padding-top:40px}}
 </style>""",unsafe_allow_html=True)
@@ -53,8 +60,8 @@ def login():
         st.markdown("### 学生信息管理系统")
         st.caption("请登录以继续")
         with st.form("login"):
-            u = st.text_input("用户名",placeholder="admin")
-            p = st.text_input("密码",type="password",placeholder="admin123")
+            u = st.text_input("用户名",placeholder="kitty")
+            p = st.text_input("密码",type="password",placeholder="abc123")
             if st.form_submit_button("登录",type="primary",use_container_width=True):
                 user = verify_user(u,p)
                 if user:
